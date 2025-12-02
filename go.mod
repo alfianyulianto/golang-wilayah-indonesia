@@ -1,4 +1,4 @@
-module github.com/vandyahmad24/golang-wilayah-indonesia
+module github.com/alfianyulianto/golang-wilayah-indonesia
 
 go 1.24.1
 
