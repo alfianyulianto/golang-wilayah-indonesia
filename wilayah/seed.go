@@ -33,7 +33,7 @@ func seedProvince(db *sql.DB, path string) {
 	}
 
 	for _, p := range provinces {
-		_, err := db.Exec(`INSERT INTO provinces (id, name, code) VALUES ($1, $2, $3) ON DUPLICATE KEY UPDATE id = id`, p.ID, p.Name, p.Code)
+		_, err := db.Exec(`INSERT INTO provinces (id, name, code) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE id = id`, p.ID, p.Name, p.Code)
 		if err != nil {
 			log.Println("Province Error:", err)
 		}
@@ -56,7 +56,7 @@ func seedCity(db *sql.DB, path string) {
 
 	for _, c := range kota {
 		_, err := db.Exec(`INSERT INTO cities (id, type, name, code, full_code, province_id) 
-			VALUES ($1, $2, $3, $4, $5, $6) 
+			VALUES (?, ?, ?, ?, ?, ?) 
 			ON DUPLICATE KEY UPDATE id = id`, c.ID, c.Type, c.Name, c.Code, c.FullCode, c.ProvinceID)
 		if err != nil {
 			log.Println("City Error:", err)
@@ -80,7 +80,7 @@ func seedDistrict(db *sql.DB, path string) {
 
 	for _, d := range kecamatan {
 		_, err := db.Exec(`INSERT INTO districts (id, name, code, full_code, city_id) 
-			VALUES ($1, $2, $3, $4, $5) 
+			VALUES (?, ?, ? ,? ,?) 
 			ON DUPLICATE KEY UPDATE id = id`, d.ID, d.Name, d.Code, d.FullCode, d.CityID)
 		if err != nil {
 			log.Println("District Error:", err)
@@ -104,7 +104,7 @@ func seedKelurahan(db *sql.DB, path string) {
 
 	for _, v := range kelurahan {
 		_, err := db.Exec(`INSERT INTO villages (id, name, code, full_code, pos_code, district_id) 
-			VALUES ($1, $2, $3, $4, $5, $6) 
+			VALUES (?, ?, ?, ?, ?, ?) 
 			ON DUPLICATE KEY UPDATE id = id`, v.ID, v.Name, v.Code, v.FullCode, v.PosCode, v.DistrictID)
 		if err != nil {
 			log.Println("Village Error:", err)
